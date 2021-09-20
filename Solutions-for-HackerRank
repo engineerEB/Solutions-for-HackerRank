@@ -87,5 +87,37 @@ ORDER BY employee_id ASC;
 
 MEDIUM PROBLEMS
 
+Contest Leaderboard (Needs explanation improved)
+We construct the Subquery by knowing we need Max score for all challenges and the hackers id. We need to filter by ASC hacker id if they have the same score and then by total score.
+We then take the sum of the max scores as the total score. From this we need to merge the two tables, the h (hacker) table to the 
+```diff
+SELECT h.hacker_id, h.name, t1.total_score
+  FROM (
+        SELECT hacker_id, SUM(max_score) AS total_score
+          FROM (
+                SELECT hacker_id, MAX(score) AS max_score
+                  FROM Submissions
+                GROUP BY hacker_id, challenge_id
+               ) t
+        GROUP BY hacker_id
+       ) t1
+  JOIN Hackers h
+    ON h.hacker_id = t1.hacker_id
+ WHERE t1.total_score <> 0
+ ORDER BY total_score DESC, hacker_id;
+```
 
+New Companies (must be expalined)
 
+```diff
+select C.company_code, 
+       C.founder, 
+       COUNT(DISTINCT E.lead_manager_code), 
+       COUNT(DISTINCT E.senior_manager_code), 
+       COUNT(DISTINCT E.manager_code), 
+       COUNT(DISTINCT E.employee_code) 
+              from Company C
+              INNER JOIN Employee E ON C.company_code = E.company_code
+              GROUP BY C.company_code, C.founder
+              ORDER BY C.company_code ASC;
+              ```
