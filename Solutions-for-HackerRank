@@ -121,3 +121,18 @@ select C.company_code,
               GROUP BY C.company_code, C.founder
               ORDER BY C.company_code ASC;
               ```
+
+The Pads
+```
+SELECT concat(Name,'(',substr(OCCUPATION,1,1),')') AS name
+FROM OCCUPATIONS
+ORDER BY name;
+SELECT concat('There are a total of ',COUNT(OCCUPATION),' ',LOWER(OCCUPATION),'s.')
+FROM OCCUPATIONS
+GROUP BY OCCUPATION
+ORDER BY COUNT(OCCIPATION), OCCUPATION;
+```
+
+Occupations
+```
+
